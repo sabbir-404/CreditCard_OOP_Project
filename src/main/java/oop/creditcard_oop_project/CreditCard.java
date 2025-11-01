@@ -1,5 +1,7 @@
 package oop.creditcard_oop_project;
 
+import javafx.scene.control.Alert;
+
 import java.time.LocalDate;
 
 public class CreditCard {
@@ -10,6 +12,20 @@ public class CreditCard {
     private Integer creditLimit;
     private String cardType;
 
+    public void showCardInfoToAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Card Infomation");
+        alert.setHeaderText("Credit Card Details");
+        alert.setContentText("cardNo='" + cardNo + '\'' +
+                ", holderName='" + holderName + '\'' +
+                ", dateOfExpiry=" + dateOfExpiry +
+                ", gateWayName='" + gateWayName + '\'' +
+                ", creditLimit=" + creditLimit +
+                ", cardType='" + cardType + '\'' +
+                '}');
+    };
+
+
     public CreditCard(String cardNo, String holderName, LocalDate dateOfExpiry, String gateWayName, Integer creditLimit, String cardType) {
         this.cardNo = cardNo;
         this.holderName = holderName;
@@ -18,6 +34,7 @@ public class CreditCard {
         this.creditLimit = creditLimit;
         this.cardType = cardType;
     }
+
 
     public String getCardNo() {
         return cardNo;
