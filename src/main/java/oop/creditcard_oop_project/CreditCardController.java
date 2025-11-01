@@ -6,6 +6,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CreditCardController
 {
@@ -47,10 +48,13 @@ public class CreditCardController
     @javafx.fxml.FXML
     public void initialize() {
         creditCardList = new ArrayList<>();
+
         gatwewayName.getItems().setAll("Visa", "MasterCard");
         GatewaynameFilter.getItems().setAll("Visa", "MasterCard");
         cardType.getItems().setAll("silver", "gold", "titanium", "platinum");
+
         notification.setEditable(false);
+
         CardNoTable.setCellValueFactory(new PropertyValueFactory<>("cardNo"));
         holderNameTable.setCellValueFactory(new PropertyValueFactory<>("holderName"));
         Gatewaynametable.setCellValueFactory(new PropertyValueFactory<>("gateWayName"));
@@ -58,9 +62,9 @@ public class CreditCardController
 
 
         CreditCard c1 = new CreditCard(
-                "4123456789012345",      // starts with 4 → Visa
+                "4123456789012345",
                 "John Doe",
-                java.time.LocalDate.of(2026, 5, 31),
+                LocalDate.of(2026, 5, 31),
                 "Visa",
                 50000,
                 "gold"
@@ -69,7 +73,7 @@ public class CreditCardController
         CreditCard c2 = new CreditCard(
                 "5123987654321098",      // starts with 5 → MasterCard
                 "Jane Smith",
-                java.time.LocalDate.of(2027, 8, 15),
+                LocalDate.of(2027, 8, 15),
                 "MasterCard",
                 80000,
                 "platinum"
@@ -78,7 +82,7 @@ public class CreditCardController
         CreditCard c3 = new CreditCard(
                 "4123987654322222",
                 "Alex Johnson",
-                java.time.LocalDate.of(2025, 12, 1),
+                LocalDate.of(2025, 12, 1),
                 "Visa",
                 30000,
                 "silver"
@@ -87,7 +91,7 @@ public class CreditCardController
         CreditCard c4 = new CreditCard(
                 "5234567890128888",
                 "Emily Brown",
-                java.time.LocalDate.of(2028, 4, 20),
+                LocalDate.of(2028, 4, 20),
                 "MasterCard",
                 100000,
                 "titanium"
@@ -134,6 +138,10 @@ public class CreditCardController
             notification.setText("Fill out all the Fields");
             return;
         }
+        if(!expiry.isAfter(LocalDate.now())){
+            notification.setText("Expiry date cannot be present!");
+            return;
+        }
 
         Integer cardLimit = Integer.parseInt(limitText);
 
@@ -164,7 +172,6 @@ public class CreditCardController
             alert.setTitle("Warning");
             alert.setContentText("Gateway did not match.");
             alert.showAndWait();
-            return;
         }
         else{
             CreditCard newCard = new CreditCard(card, holder, expiry, gateway, cardLimit, type);
@@ -172,7 +179,6 @@ public class CreditCardController
             cardDisplayTable.getItems().add(newCard);
             reset();
             notification.setText("Card has been added!");
-            return;
         }
 
 
@@ -202,4 +208,26 @@ public class CreditCardController
                 "Total count is: " + count);
     }
 
+    @javafx.fxml.FXML
+    public void randomCardNo(ActionEvent actionEvent) {
+        Random random = new Random();
+        String gateWay = this.gatwewayName.getValue();
+
+        if(gateWay == null){
+            notification.setText("Select a gateway!");
+            return;
+        }
+        StringBuilder card = new StringBuilder();
+        if (gateWay.equals("MasterCard")){
+             card = new StringBuilder("5");
+        } else if (gateWay.equals("Visa")) {
+            card = new StringBuilder("4");
+        }
+
+        for(int i = 0; i < 15; i++){
+            card.append(random.nextInt(10));
+        }
+        cardNo.setText(String.valueOf(card));
+
+    }
 }

@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="711.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.creditcard_oop_project.CreditCardController">
    <children>
       <Label layoutX="86.0" layoutY="80.0" text="CardNo." />
@@ -50,5 +49,10 @@
       <Button layoutX="36.0" layoutY="619.0" mnemonicParsing="false" onAction="#showAverageCreditLimitfromLoadedTableView" prefHeight="66.0" prefWidth="142.0" text="Show Average Credit Limit from Loaded TableView" wrapText="true" />
       <TextArea fx:id="result" layoutX="201.0" layoutY="619.0" prefHeight="66.0" prefWidth="372.0" />
       <TextArea fx:id="notification" layoutX="172.0" layoutY="194.0" prefHeight="66.0" prefWidth="423.0" />
+      <Button layoutX="209.0" layoutY="36.0" mnemonicParsing="false" onAction="#randomCardNo" prefHeight="33.0" prefWidth="78.0" text="Generate Random CardNo." wrapText="true">
+         <font>
+            <Font name="System Bold" size="8.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
